@@ -2,13 +2,13 @@
 # Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
 
 buildarch=8
-_branch=wip/x1e80100-6.14-rc2
+_branch=wip/x1e80100-6.14-rc7
 
 pkgbase=linux-x1e
-_srcname=linux-6.14-rc2
+_srcname=linux-6.14-rc7
 _kernelname=${pkgbase#linux}
 _desc="Linux for Snapdragon X"
-pkgver="6.14.rc2"
+pkgver="6.14.rc7"
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -49,7 +49,7 @@ prepare() {
     git fetch --depth=1 origin ${_branch}
     git checkout -b ${_branch} || (git checkout ${_branch} && git reset --hard origin/${_branch})
   else
-    git clone --depth=1 https://github.com/anonymix007/linux-x1e.git ${_srcname} -b ${_branch}
+    git clone --depth=1 https://github.com/orotalt/linux.git ${_srcname} -b ${_branch}
   fi
 
   cd $_srcname
