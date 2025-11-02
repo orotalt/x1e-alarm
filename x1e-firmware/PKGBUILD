@@ -1,6 +1,6 @@
 pkgname="x1e-firmware"
 pkgdesc="Linux firmware for Snapdragon X devices"
-pkgver=20250311
+pkgver=20251011
 pkgrel=0
 arch=("any")
 options=('!strip')
@@ -14,36 +14,35 @@ _srcdir=linux-firmware
 _backports=()
 
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
-        "git+https://github.com/anonymix007/x1e-firmware"
-        "dracut.conf.d-x1e-firmware.conf")
+	"git+https://github.com/anonymix007/x1e-firmware"
+	"dracut.conf.d-x1e-firmware.conf")
 sha256sums=('SKIP'
             'SKIP'
             '15756fd80b810723f8c686b16599276c5e119bcf59e3807747238bd0b823e032')
 
 prepare() {
-  cd linux-firmware
-  git checkout tags/${pkgver}
-  local _c
-  for _c in "${_backports[@]}"; do
-    git log --oneline -1 "${_c}"
-    git cherry-pick -n "${_c}"
-  done
+	cd linux-firmware
+	git checkout tags/${pkgver}
+	local _c
+	for _c in "${_backports[@]}"; do
+		git log --oneline -1 "${_c}"
+		git cherry-pick -n "${_c}"
+	done
 }
 
 package_x1e-firmware() {
-  depends=('initramfs')
+	depends=('initramfs')
 
-  install -Dm644 "${srcdir}/dracut.conf.d-x1e-firmware.conf" "${pkgdir}/etc/dracut.conf.d/x1e-firmware.conf"
-  install -Dt "${pkgdir}/usr/share/licenses/${pkgname}" -m644 ${_srcdir}/WHENCE
+	install -Dm644 "${srcdir}/dracut.conf.d-x1e-firmware.conf" "${pkgdir}/etc/dracut.conf.d/x1e-firmware.conf"
+	install -Dt "${pkgdir}/usr/share/licenses/${pkgname}" -m644 ${_srcdir}/WHENCE
 
-  mkdir -pv "${pkgdir}"/usr/lib/firmware
-  cp -rv "${_srcdir}"/qca "${pkgdir}"/usr/lib/firmware
-  cp -rv "${_srcdir}"/qcom "${pkgdir}"/usr/lib/firmware
-  cp -rv "${_srcdir}"/ath12k "${pkgdir}"/usr/lib/firmware
-  cp -rv "${_srcdir}"/rtl_nic "${pkgdir}"/usr/lib/firmware
+	mkdir -pv "${pkgdir}"/usr/lib/firmware
+	cp -rv "${_srcdir}"/qca "${pkgdir}"/usr/lib/firmware
+	cp -rv "${_srcdir}"/qcom "${pkgdir}"/usr/lib/firmware
+	cp -rv "${_srcdir}"/ath12k "${pkgdir}"/usr/lib/firmware
+	cp -rv "${_srcdir}"/rtl_nic "${pkgdir}"/usr/lib/firmware
 
-  cd x1e-firmware
+	cd x1e-firmware
 
-  make DEST="${pkgdir}"/usr/lib install
+	make DEST="${pkgdir}"/usr/lib install
 }
-

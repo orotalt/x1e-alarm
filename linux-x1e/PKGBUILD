@@ -2,13 +2,13 @@
 # Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
 
 buildarch=8
-_branch=wip/x1e80100-6.15-rc7
+_branch=wip/x1e80100-6.18-rc3
 
 pkgbase=linux-x1e
-_srcname=linux-6.15-rc7
+_srcname=linux-6.18-rc3
 _kernelname=${pkgbase#linux}
 _desc="Linux for Snapdragon X"
-pkgver="6.15.rc7"
+pkgver="6.18.rc3"
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -22,12 +22,12 @@ source=('config'
 	'mkinitcpio.conf.d-x1e.conf'
 	'dracut.conf.d-x1e.conf')
 
-md5sums=('ff9e983e14e96d8acc48957a10c1efd0'
-	'5fed4c1a928a8c705773499f18395423'
-	'0a5f16bfec6ad982a2f6782724cca8ba'
-	'6f99095fbe9f577233b53a83802aab59'
-	'a1a1d411373cc673df937b4ebf4ad42b'
-	'1efda90d007fa8e3efc3140cdb5bea2c')
+md5sums=('85a908c56f34a6a23f33d61795b38edd'
+         '5fed4c1a928a8c705773499f18395423'
+         '0a5f16bfec6ad982a2f6782724cca8ba'
+         '6f99095fbe9f577233b53a83802aab59'
+         'a63fb2af1b40fa4b72bf76add1148708'
+         '1efda90d007fa8e3efc3140cdb5bea2c')
 
 _dtbs=('arch/arm64/boot/dts/qcom/x1e001de-devkit.dtb'
 	'arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtb'
@@ -52,7 +52,7 @@ prepare() {
 		git clone --depth=1 https://github.com/orotalt/linux.git ${_srcname} -b ${_branch}
 	fi
 
-	cd $_srcname
+	cd ${srcdir}/${_srcname}
 
 	echo "Setting version..."
 	#scripts/setlocalversion --save-scmversion
@@ -64,7 +64,8 @@ prepare() {
 
 	# ALARM patches
 	#patch -Np1 -i ../fix-mutter.patch
-
+	echo "cat ${srcdir}/config >./.config"
+	sleep 10
 	cat "${srcdir}/config" >./.config
 }
 
