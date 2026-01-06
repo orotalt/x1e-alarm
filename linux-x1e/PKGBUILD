@@ -2,13 +2,13 @@
 # Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
 
 buildarch=8
-_branch=wip/x1e80100-6.18-rc3
+_branch=wip/x1e80100-6.18
 
 pkgbase=linux-x1e
-_srcname=linux-6.18-rc3
+_srcname=linux-6.18
 _kernelname=${pkgbase#linux}
 _desc="Linux for Snapdragon X"
-pkgver="6.18.rc3"
+pkgver="6.18"
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -22,12 +22,12 @@ source=('config'
 	'mkinitcpio.conf.d-x1e.conf'
 	'dracut.conf.d-x1e.conf')
 
-md5sums=('85a908c56f34a6a23f33d61795b38edd'
+md5sums=('6ceb0d9aa8acd407fc8ce67d8bf05898'
          '5fed4c1a928a8c705773499f18395423'
          '0a5f16bfec6ad982a2f6782724cca8ba'
          '6f99095fbe9f577233b53a83802aab59'
-         'a63fb2af1b40fa4b72bf76add1148708'
-         '1efda90d007fa8e3efc3140cdb5bea2c')
+         '13b49fadb40ce928a005b99323740b1a'
+         '150872e5e0f9d5a0322a5c0962a8aafb')
 
 _dtbs=('arch/arm64/boot/dts/qcom/x1e001de-devkit.dtb'
 	'arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtb'
